@@ -300,7 +300,13 @@ function visualize(data){
 }
 
 // Import csv data into the variable called data passed in the function
-d3.csv("../data/data.csv").then(function(data){
+// d3.csv("../data/data.csv").then(function(data){
+//     visualize(data)
+// })
+var data = testData
+(function(data){
     visualize(data)
 })
+
+
 
