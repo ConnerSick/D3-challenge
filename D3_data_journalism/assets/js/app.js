@@ -1,16 +1,11 @@
-// Grab the width of the containing box
 let width = parseInt(d3.select("#scatter").style("width"));
 
-// Height of the graph 
 let height = width - width / 4.0
 
-// Margin spacing for graph
 let margin = 20
 
-// space between words 
 let labelArea = 110;
 
-// padding for the text at the bottom and left axes 
 let textPaddingBottom = 40;
 let textPaddingLeft = 40;
 
@@ -34,16 +29,14 @@ function circleGetRadius(){
 
 circleGetRadius()
 
-// The labels for our axes 
 svg.append("g").attr("class", "xaxisText")
-// will allow us to select the group without excess code stored in a variable
 let xaxisText = d3.select(".xaxisText")
 
 function xaxisTextRefresh(){
     xaxisText.attr("transform", `translate(${(width - labelArea)/ 2 + labelArea}, ${height - margin - textPaddingBottom})`)
 }
 xaxisTextRefresh()
-// Povery
+
 xaxisText
     .append("text")
     .attr("y", -26)
@@ -51,7 +44,7 @@ xaxisText
     .attr("data-axis", "x")
     .attr("class", "activeText active x")
     .text("In Poverty (%)")
-// Age
+
 xaxisText
     .append("text")
     .attr("y", 0)
@@ -59,7 +52,8 @@ xaxisText
     .attr("data-axis", "x")
     .attr("class", "activeText inactive x")
     .text('Age (Media)')
-// Income
+
+    
 xaxisText
     .append("text")
     .attr("y", 26)
@@ -68,7 +62,7 @@ xaxisText
     .attr("class", "activeText inactive x")
     .text('Household Income (Media)')
 
-// Left Axis 
+
 let leftTextX = margin + textPaddingLeft
 let leftTextY = (height + labelArea) / 2 - labelArea
 
@@ -81,7 +75,7 @@ function yaxisTextRefresh(){
 }
 yaxisTextRefresh()
 
-// Obese
+
 yaxisText
     .append("text")
     .attr("y", -26)
@@ -89,7 +83,7 @@ yaxisText
     .attr("data-axis", "y")
     .attr("class", "activeText active y")
     .text("Obese (%)")
-// Smokes
+
 yaxisText
     .append("text")
     .attr("y", 0)
@@ -97,7 +91,7 @@ yaxisText
     .attr("data-axis", "y")
     .attr("class", "activeText inactive y")
     .text("Smokes (%)")
-// Lack HEalthcare
+
 yaxisText
     .append("text")
     .attr("y", 26)
@@ -111,10 +105,8 @@ function visualize(data){
     let currentX = "poverty"
     let currentY = "obesity"
 
-    // min max for x
     let xMin
     let xMax
-    // min max for y
     let yMin
     let yMax 
 
@@ -123,7 +115,6 @@ function visualize(data){
                 .attr("class", "d3-tip")
                 .offset([40,-60])
                 .html(function(data){
-                    //the x key
                     let theX
                     let theState = `<div>${data.state}</div>`
                     let theY = `<div>${currentY}:${data[currentY]}%</div>`
@@ -137,8 +128,7 @@ function visualize(data){
                 })
 
     svg.call(toolTip)
-    // D.R.Y 
-    // function for x min max
+
     function xMinMax(){
         xMin = d3.min(data, function(d){
             return parseFloat(d[currentX]) * 0.90
@@ -147,7 +137,7 @@ function visualize(data){
             return parseFloat(d[currentX]) * 1.10
         })
     }
-    // function for y min max
+
     function yMinMax(){
         yMin = d3.min(data, function(d){
             return parseFloat(d[currentY]) * 0.90
@@ -292,21 +282,10 @@ function visualize(data){
         }
 
     })
-
-        
-    
-                
+               
 
 }
 
-// Import csv data into the variable called data passed in the function
-// d3.csv("../data/data.csv").then(function(data){
-//     visualize(data)
-// })
-var data = testData
-(function(data){
+d3.csv("../data/data.csv").then(function(data){
     visualize(data)
 })
-
-
-
