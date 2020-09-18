@@ -258,7 +258,6 @@ function visualize(data){
                 labelChange(axis, self)
 
                 
-                
             } 
             else {
                 currentY = name 
